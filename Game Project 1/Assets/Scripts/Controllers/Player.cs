@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField]private float playerSpeed = 2f;
+    [SerializeField]private float playerSpeed = 5f;
     [SerializeField]private Animator _animator;
-    [SerializeField]private Rigidbody2D _rigidbody;
-    private Vector2 movement;
+    //[SerializeField]private Rigidbody2D _rigidbody;
+    private Vector3 movement;
 
     void Start()
     {
@@ -18,6 +18,6 @@ public class Player : MonoBehaviour
     {
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
-        _rigidbody.velocity = playerSpeed * movement * Time.deltaTime;
+        transform.position += movement * playerSpeed * Time.deltaTime;
     }
 }
