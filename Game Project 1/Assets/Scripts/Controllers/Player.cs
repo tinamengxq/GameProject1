@@ -48,4 +48,22 @@ public class Player : MonoBehaviour
             currentInteractable = null;
         }
     }
+
+    private void OggerEnter2D(Collider2D collision)
+    {
+        var interactable = collision.GetComponent<IInteractable>();
+        if(interactable != null)
+        {
+            SetInteractable(interactable);
+        }
+    }
+
+    private void OnD(Collider2D collision)
+    {
+        var interactable = collision.GetComponent<IInteractable>();
+        if (interactable != null)
+        {
+            ClearInteractable(interactable);
+        }
+    }
 }

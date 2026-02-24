@@ -5,6 +5,6 @@ using UnityEngine;
 
 public interface IInteractable
 {
-    void Interact(PlayerController2D player);
-    string GetPrompt(PlayerController2D player);
+    void Interact(Player player);
+    string GetPrompt(Player player);
 }
