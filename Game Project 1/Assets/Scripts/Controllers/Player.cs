@@ -11,20 +11,41 @@ public class Player : MonoBehaviour
 
     [Header("Assets")]
     [SerializeField]private Animator _animator;
+    [SerializeField]private Rigidbody2D _rigidbody;
 
     [Header("Inventory")]
     public Inventory inventory = new Inventory();
 
     [Header("Interaction")]
     public KeyCode interactKey = KeyCode.F;
-    
+    private IInteractable currentInteractable;
 
-
-
-    void Update()
+    private void Update()
     {
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
+
+        if(Input.GetKeyDown(interactKey) && currentInteractable != null)
+        {
+            currentInteractable.Interact(this);
+        }        
+    }
+
+    private void FixedUpdate()
+    {
         transform.position += movement * playerSpeed * Time.deltaTime;
+    }
+
+    public void SetInteractable(IInteractable interactable)
+    {
+        currentInteractable = interactable;
+    }
+
+    public void ClearInteractable(IInteractable interactable)
+    {
+        if(currentInteractable == interactable)
+        {
+            currentInteractable = null;
+        }
     }
 }
