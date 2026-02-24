@@ -1,18 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [Header("Movement")]
     [SerializeField]private float playerSpeed = 5f;
-    [SerializeField]private Animator _animator;
-    //[SerializeField]private Rigidbody2D _rigidbody;
     private Vector3 movement;
 
-    void Start()
-    {
-        
-    }
+    [Header("Assets")]
+    [SerializeField]private Animator _animator;
+
+    [Header("Inventory")]
+    public Inventory inventory = new Inventory();
+
+    [Header("Interaction")]
+    public KeyCode interactKey = KeyCode.F;
+    
+
+
 
     void Update()
     {
