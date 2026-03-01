@@ -7,7 +7,9 @@ public class Player : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField]private float playerSpeed = 5f;
-    private Vector3 movement;
+    private Vector3 moveInput;
+    private Vector2 lastMoveDir = Vector2.right;
+    public Vector2 LastMoveDirection => lastMoveDir;
 
     [Header("Assets")]
     [SerializeField]private Animator _animator;
@@ -20,50 +22,31 @@ public class Player : MonoBehaviour
     public KeyCode interactKey = KeyCode.F;
     private IInteractable currentInteractable;
 
+    private void Awake()
+    {
+        _rigidbody = GetComponent<Rigidbody2D>();
+        _rigidbody.gravityScale = 0f;
+        _rigidbody.freezeRotation = true;
+    }
     private void Update()
     {
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
+        moveInput.x = Input.GetAxisRaw("Horizontal");
+        moveInput.y = Input.GetAxisRaw("Vertical");
 
         if(Input.GetKeyDown(interactKey) && currentInteractable != null)
         {
-            currentInteractable.Interact(this);
-        }        
+            currentInteractable.Interact();
+        }
+        if (moveInput.sqrMagnitude > 0.01f)
+        {
+            moveInput = moveInput.normalized;
+            lastMoveDir = moveInput;
+        }
     }
 
     private void FixedUpdate()
     {
-        transform.position += movement * playerSpeed * Time.deltaTime;
+        transform.position += moveInput * playerSpeed * Time.deltaTime;
     }
 
-    public void SetInteractable(IInteractable interactable)
-    {
-        currentInteractable = interactable;
-    }
-
-    public void ClearInteractable(IInteractable interactable)
-    {
-        if(currentInteractable == interactable)
-        {
-            currentInteractable = null;
-        }
-    }
-
-    private void OggerEnter2D(Collider2D collision)
-    {
-        var interactable = collision.GetComponent<IInteractable>();
-        if(interactable != null)
-        {
-            SetInteractable(interactable);
-        }
-    }
-
-    private void OnD(Collider2D collision)
-    {
-        var interactable = collision.GetComponent<IInteractable>();
-        if (interactable != null)
-        {
-            ClearInteractable(interactable);
-        }
-    }
 }
