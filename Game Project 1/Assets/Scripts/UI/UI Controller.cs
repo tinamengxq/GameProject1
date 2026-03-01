@@ -108,7 +108,13 @@ public class UIController : MonoBehaviour
     public void ShowDialogue(Sprite speaker, string line)
     {
         dialoguePanel.SetActive(true);
-        speakerImage.sprite = speaker;
+
+    if (speakerImage != null)
+    {
+        speakerImage.gameObject.SetActive(speaker != null);
+        if (speaker != null) speakerImage.sprite = speaker;
+    }
+
         dialogueText.text = line;
     }
 
