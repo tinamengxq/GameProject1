@@ -32,6 +32,14 @@ public class Player : MonoBehaviour
     {
         moveInput.x = Input.GetAxisRaw("Horizontal");
         moveInput.y = Input.GetAxisRaw("Vertical");
+        if(moveInput != new Vector3(0,0,0))
+        {
+            _animator.SetBool("Walking", true);
+        }
+        else
+        {
+            _animator.SetBool("Walking", false);
+        }
 
         if(Input.GetKeyDown(interactKey) && currentInteractable != null)
         {
