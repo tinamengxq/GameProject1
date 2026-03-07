@@ -36,8 +36,10 @@ public class UIController : MonoBehaviour
 
     [Header("Bag UI")]
     [SerializeField] private TMP_Text bagText;
+    [SerializeField] private GameObject bagPanel;
 
     [Header("Dialogue UI")]
+    [SerializeField] private DialogueNode dialogueNode;
     [SerializeField] private GameObject dialoguePanel;
     [SerializeField] private Image speakerImage;
     [SerializeField] private TMP_Text dialogueText;
@@ -51,6 +53,20 @@ public class UIController : MonoBehaviour
 
         UpdateQuestUI();
         UpdateBagUISnapshot();
+        BeginningDialogue(dialogueNode);
+        bagPanel.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if (dialoguePanel != null)
+        {
+            if(Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
+            {
+                dialoguePanel.SetActive(false);
+                bagPanel.SetActive(true);
+            }
+        }
     }
 
     // Interaction
@@ -106,8 +122,14 @@ public class UIController : MonoBehaviour
         // simple text hotbar (fast to prototype)
         ItemType selected = Inventory.Instance.SelectedItem;
 
-        bagText.text = $"Selected: {selected}\n" +
-                       "1-5 to select";
+        bagText.text = $"Selected:\n" + 
+                        $"{selected}\n" +
+                       "1-5 to select: \n" +
+                       $"1: {Inventory.Instance.GetItem(0)}\n" +
+                       $"2: {Inventory.Instance.GetItem(1)}\n" +
+                       $"3: {Inventory.Instance.GetItem(2)}\n" +
+                       $"4: {Inventory.Instance.GetItem(3)}\n" +
+                       $"5: {Inventory.Instance.GetItem(4)}";
     }
 
     // Dialogue
@@ -128,5 +150,18 @@ public class UIController : MonoBehaviour
     {
         if (dialoguePanel != null) dialoguePanel.SetActive(false);
     }
+
+    public void BeginningDialogue(DialogueNode node)
+    {
+        Sprite speaker = node.speakerSprite;
+        string line = "";
+
+        for(int i = 0; i < node.lines.Length; i++)
+        {
+            line += node.lines[i] + "\n";
+            ShowDialogue(speaker, line);
+        }
+    }
+
 
 }

@@ -12,8 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 325170f3cf58c42fdb43c3c53c4544bf, type: 3}
   m_Name: Nothing Assigned
   m_EditorClassIdentifier: 
-  speakerSprite: {fileID: 0}
-  speakerName: "\uFF1F\uFF1F\uFF1F"
+  speakerSprite: {fileID: 21300000, guid: ef429d1cd75094f898f33f42237197e2, type: 3}
+  speakerName: ???
   lines:
-  - "\u4F60\u597D\u5440\uFF0C\u6B22\u8FCE\u6765\u5230\u4F60\u7684\u5C0F\u82B1\u56ED\uFF01"
+  - Hi! Welcome to my garden. Use WASD to move around and finish the three quests
+    I assigned you!
+  - You can select 1-5 to switch pockets in your bag. Every pocket can only hold
+    one object.
+  - By clicking F, you can interact if the prompt is given. Click space to end the
+    instruction, and enjoy your game!
   choices: []

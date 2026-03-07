@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum PlotState
@@ -13,9 +14,13 @@ public enum PlotState
 public class GardenPlot : MonoBehaviour, IInteractable
 {
     [SerializeField] private float growSeconds = 5f;
+    [SerializeField] private Sprite plantSprite;
+    [SerializeField] private Sprite grownSprite;
+    [SerializeField] private Transform playerInteractionPoint;
 
     private PlotState state = PlotState.Empty;
     private ProgressTimer timer = new ProgressTimer();
+    private Sprite sprite;
 
     private void Awake()
     {
@@ -33,6 +38,10 @@ public class GardenPlot : MonoBehaviour, IInteractable
     private void Update()
     {
         timer.Update(Time.deltaTime);
+        if(state == PlotState.Ready && Input.GetKeyDown(KeyCode.F))
+        {
+            sprite = null;
+        }
     }
 
     public string GetPrompt()
@@ -51,11 +60,14 @@ public class GardenPlot : MonoBehaviour, IInteractable
 
         if (state == PlotState.Growing)
         {
+            sprite = plantSprite;
+            Instantiate(sprite, playerInteractionPoint.position + new Vector3 (-1,0,0), Quaternion.identity, transform);
             return "Growing...";
         }
 
         if (state == PlotState.Ready)
         {
+            sprite = grownSprite;
             return "Harvest (F)";
         }
 

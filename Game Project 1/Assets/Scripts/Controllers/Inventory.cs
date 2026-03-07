@@ -89,5 +89,11 @@ public class Inventory: MonoBehaviour
         OnInventoryChanged?.Invoke((ItemType[])items.Clone());
     }
 
+    public ItemType GetItem(int index)
+    {
+        if (index < 0 || index >= items.Length) return ItemType.None;
+        return items[index];
+    }
+
 
 }
