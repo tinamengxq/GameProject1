@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
 public class UIController : MonoBehaviour
 {
@@ -56,12 +57,17 @@ public class UIController : MonoBehaviour
     public void ShowInteractPrompt(string prompt)
     {
         interactPanel.SetActive(true);
+        interactText.gameObject.SetActive(true);
         interactText.text = $"F - {prompt}";
     }
 
     public void HideInteractPrompt()
     {
-        if (interactPanel != null) interactPanel.SetActive(false);
+        if (interactPanel != null)
+        {
+            interactText.gameObject.SetActive(false);
+            interactPanel.SetActive(false);
+        } 
     }
 
     // Progress
