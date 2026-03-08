@@ -95,5 +95,17 @@ public class Inventory: MonoBehaviour
         return items[index];
     }
 
+    public bool HasItem(ItemType item)
+    {
+        for(int i = 0; i < items.Length; i++)
+        {
+            if(items[i] == item)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 }

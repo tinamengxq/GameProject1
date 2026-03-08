@@ -10,10 +10,12 @@ public class Player : MonoBehaviour
     private Vector3 moveInput;
     private Vector2 lastMoveDir = Vector2.right;
     public Vector2 LastMoveDirection => lastMoveDir;
+    private bool facingLeft = false;
 
     [Header("Assets")]
     [SerializeField]private Animator _animator;
     [SerializeField]private Rigidbody2D _rigidbody;
+    [SerializeField]private SpriteRenderer _spriteRenderer;
 
     [Header("Inventory")]
     public Inventory inventory = new Inventory();
@@ -49,6 +51,17 @@ public class Player : MonoBehaviour
         {
             moveInput = moveInput.normalized;
             lastMoveDir = moveInput;
+        }
+
+        if(Input.GetAxisRaw("Horizontal") < 0 && !facingLeft)
+        {
+            _spriteRenderer.flipX = true;
+            facingLeft = true;
+        }
+        else if(Input.GetAxisRaw("Horizontal") > 0 && facingLeft)
+        {
+           _spriteRenderer.flipX = false;
+            facingLeft = false;
         }
     }
 

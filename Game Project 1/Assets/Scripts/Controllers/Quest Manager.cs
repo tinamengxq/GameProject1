@@ -40,4 +40,49 @@ public class QuestManager : MonoBehaviour
         AudioManager.Instance.PlayQuestCheck();
     }
 
+    public void GrowVegetables()
+    {
+        if(questDone[QuestType.GrowVegetables] == true)
+        {
+            return;
+        }
+
+        if (Inventory.Instance.HasItem(ItemType.Vegetable))
+        {
+            questDone[QuestType.GrowVegetables] = true;
+            OnQuestUpdated?.Invoke(QuestType.GrowVegetables, true);
+            IsDone(QuestType.GrowVegetables);
+        }
+    }
+
+    public void GrowBees()
+    {
+        if (questDone[QuestType.GrowBees] == true)
+        {
+            return;
+        }
+
+        if (Inventory.Instance.HasItem(ItemType.Honey))
+        {
+            questDone[QuestType.GrowBees] = true;
+            OnQuestUpdated?.Invoke(QuestType.GrowBees, true);
+            IsDone(QuestType.GrowBees);
+        }
+    }
+
+    public void GrowAnimals()
+    {
+        if (questDone[QuestType.GrowAnimals] == true)
+        {
+            return;
+        }
+
+        if (!Inventory.Instance.HasItem(ItemType.AnimalFood))
+        {
+            questDone[QuestType.GrowAnimals] = true;
+            OnQuestUpdated?.Invoke(QuestType.GrowAnimals, true);
+            IsDone(QuestType.GrowAnimals);
+        }
+    }
+
 }

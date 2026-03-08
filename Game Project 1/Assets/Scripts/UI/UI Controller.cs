@@ -39,10 +39,13 @@ public class UIController : MonoBehaviour
     [SerializeField] private GameObject bagPanel;
 
     [Header("Dialogue UI")]
-    [SerializeField] private DialogueNode dialogueNode;
+    [SerializeField] private DialogueNode firstNode;
+    [SerializeField] private DialogueNode secondNode;
     [SerializeField] private GameObject dialoguePanel;
     [SerializeField] private Image speakerImage;
     [SerializeField] private TMP_Text dialogueText;
+    private bool firstDialogue;
+    private bool secondDialogue;
 
     private void Start()
     {
@@ -53,20 +56,38 @@ public class UIController : MonoBehaviour
 
         UpdateQuestUI();
         UpdateBagUISnapshot();
-        BeginningDialogue(dialogueNode);
+        BeginningDialogue(firstNode);
         bagPanel.SetActive(false);
+        firstDialogue = true;
+        secondDialogue = false;
     }
 
     private void Update()
     {
-        if (dialoguePanel != null)
+        if (dialoguePanel != null && firstDialogue)
         {
-            if(Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
+            if(Input.GetMouseButtonDown(0) || Input.GetKey(KeyCode.Space))
+            {
+                NextDialogue(secondNode);
+                //dialoguePanel.SetActive(false);
+                //bagPanel.SetActive(true);
+                //secondDialogue = true;
+                firstDialogue = false;
+                
+            }
+        }
+        secondDialogue = true;
+
+        if(dialoguePanel != null && secondDialogue)
+        {
+            if (Input.GetMouseButtonDown(0) || Input.GetKey(KeyCode.Space))
             {
                 dialoguePanel.SetActive(false);
                 bagPanel.SetActive(true);
             }
         }
+
+        
     }
 
     // Interaction
@@ -106,9 +127,9 @@ public class UIController : MonoBehaviour
         bool b = QuestManager.Instance.IsDone(QuestType.GrowBees);
 
         questText.text =
-            $"{(v ? "✅" : "⬜")} Grow vegetables\n" +
-            $"{(a ? "✅" : "⬜")} Grow animals\n" +
-            $"{(b ? "✅" : "⬜")} Grow bees";
+            $"{(v ? "[√]" : "[  ]")} Grow vegetables\n" +
+            $"{(a ? "[√]" : "[  ]")} Grow animals\n" +
+            $"{(b ? "[√]" : "[  ]")} Grow bees";
     }
 
     // Bag
@@ -163,5 +184,16 @@ public class UIController : MonoBehaviour
         }
     }
 
+    public void NextDialogue(DialogueNode node)
+    {
+        Sprite speaker = node.speakerSprite;
+        string line = "";
+
+        for (int i = 0; i < node.lines.Length; i++)
+        {
+            line += node.lines[i] + "\n";
+            ShowDialogue(speaker, line);
+        }
+    }
 
 }
