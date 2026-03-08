@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 325170f3cf58c42fdb43c3c53c4544bf, type: 3}
   m_Name: Instruction
   m_EditorClassIdentifier: 
-  speakerSprite: {fileID: 0}
-  speakerName: 
-  lines: []
+  speakerSprite: {fileID: 21300000, guid: ef429d1cd75094f898f33f42237197e2, type: 3}
+  speakerName: ???
+  lines:
+  - Bee House locates at the right-bottom side.
+  - Animal House locates at the right-top side.
+  - Garden Plot locates at the left.
+  - Click space to end the instruction, and enjoy your game!
   choices: []

@@ -553,7 +553,8 @@ MonoBehaviour:
   questText: {fileID: 620676812}
   bagText: {fileID: 599592778}
   bagPanel: {fileID: 299214551}
-  dialogueNode: {fileID: 11400000, guid: a2ea675c731cf435082561838a6b5a49, type: 2}
+  firstNode: {fileID: 11400000, guid: a2ea675c731cf435082561838a6b5a49, type: 2}
+  secondNode: {fileID: 11400000, guid: 7d9e2c2b5300a47c6b218a8b344ae2e2, type: 2}
   dialoguePanel: {fileID: 960181891}
   speakerImage: {fileID: 552378750}
   dialogueText: {fileID: 1927616433}
@@ -1174,6 +1175,7 @@ MonoBehaviour:
   playerSpeed: 5
   _animator: {fileID: 570471269}
   _rigidbody: {fileID: 570471273}
+  _spriteRenderer: {fileID: 570471276}
   inventory: {fileID: 986333515}
   interactKey: 102
 --- !u!4 &570471271
@@ -2639,8 +2641,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
