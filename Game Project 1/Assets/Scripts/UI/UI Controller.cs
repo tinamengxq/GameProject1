@@ -87,7 +87,10 @@ public class UIController : MonoBehaviour
             }
         }
 
-        
+        if(QuestManager.Instance.IsDone(QuestType.GrowVegetables) && QuestManager.Instance.IsDone(QuestType.GrowAnimals) && QuestManager.Instance.IsDone(QuestType.GrowBees))
+        {
+            FinishGame();
+        }
     }
 
     // Interaction
@@ -120,7 +123,7 @@ public class UIController : MonoBehaviour
     }
 
     // Quest
-    private void UpdateQuestUI()
+    protected void UpdateQuestUI()
     {
         bool v = QuestManager.Instance.IsDone(QuestType.GrowVegetables);
         bool a = QuestManager.Instance.IsDone(QuestType.GrowAnimals);
@@ -194,6 +197,15 @@ public class UIController : MonoBehaviour
             line += node.lines[i] + "\n";
             ShowDialogue(speaker, line);
         }
+    }
+
+    // Finish
+    public void FinishGame()
+    {
+        dialoguePanel.SetActive(true);
+        speakerImage.gameObject.SetActive(true);
+        bagPanel.SetActive(false);
+        ShowDialogue(speakerImage.sprite, "Congratulations! You have completed all the quests and finished the game! \nThank you for your work!");
     }
 
 }
