@@ -12,6 +12,7 @@
 - Animator
 - Scriptableobject
 - Tilemap
+- Canvas
 - Inheritance
 - Interface
 - Singleton
