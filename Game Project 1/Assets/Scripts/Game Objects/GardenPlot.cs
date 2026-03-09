@@ -16,11 +16,12 @@ public class GardenPlot : MonoBehaviour, IInteractable
     [SerializeField] private float growSeconds = 5f;
     [SerializeField] private Sprite plantSprite;
     [SerializeField] private Sprite grownSprite;
+    [SerializeField] private SpriteRenderer plotRenderer;
     [SerializeField] private Transform playerInteractionPoint;
 
     private PlotState state = PlotState.Empty;
     private ProgressTimer timer = new ProgressTimer();
-    private Sprite sprite;
+    //private SpriteRenderer currentSprite;
 
     private void Awake()
     {
@@ -32,6 +33,10 @@ public class GardenPlot : MonoBehaviour, IInteractable
         {
             UIController.Instance.HideProgress();
             state = PlotState.Ready;
+            plotRenderer.sprite = grownSprite;
+            plotRenderer.sortingLayerName = "Player";
+            //plotRenderer.transform.localScale *= 5f;
+            plotRenderer.sortingOrder = 5;
         };
     }
 
@@ -40,7 +45,7 @@ public class GardenPlot : MonoBehaviour, IInteractable
         timer.Update(Time.deltaTime);
         if(state == PlotState.Ready && Input.GetKeyDown(KeyCode.F))
         {
-            sprite = null;
+            //plotRenderer.enabled = false;
         }
     }
 
@@ -60,14 +65,14 @@ public class GardenPlot : MonoBehaviour, IInteractable
 
         if (state == PlotState.Growing)
         {
-            sprite = plantSprite;
-            Instantiate(sprite, playerInteractionPoint.position + new Vector3 (-1,0,0), Quaternion.identity, transform);
+            //sprite = plantSprite;
+            //Instantiate(sprite, playerInteractionPoint.position + new Vector3 (-1,0,0), Quaternion.identity, transform);
             return "Growing...";
         }
 
         if (state == PlotState.Ready)
         {
-            sprite = grownSprite;
+            //sprite = grownSprite;
             return "Harvest (F)";
         }
 
@@ -84,6 +89,10 @@ public class GardenPlot : MonoBehaviour, IInteractable
             if (!Inventory.Instance.ConsumeSelected()) return;
 
             state = PlotState.Planted;
+            plotRenderer.sprite = plantSprite;
+            plotRenderer.sortingLayerName = "Player";
+            plotRenderer.transform.localScale *= 5f;
+            plotRenderer.sortingOrder = 5;
             return;
         }
 
@@ -94,6 +103,10 @@ public class GardenPlot : MonoBehaviour, IInteractable
 
             state = PlotState.Growing;
             timer.Start(growSeconds);
+            plotRenderer.sprite = plantSprite;
+            plotRenderer.sortingLayerName = "Player";
+            //plotRenderer.transform.localScale *= 5f;
+            plotRenderer.sortingOrder = 5;
             return;
         }
 
@@ -106,6 +119,11 @@ public class GardenPlot : MonoBehaviour, IInteractable
             QuestManager.Instance.Complete(QuestType.GrowVegetables);
 
             state = PlotState.Empty;
+            plotRenderer.sprite = null;
+
+            //plotRenderer.sprite = plantSprite;
+            //plotRenderer.sortingLayerName = "Player";
+            //plotRenderer.sortingOrder = 5;
             return;
         }
     }
