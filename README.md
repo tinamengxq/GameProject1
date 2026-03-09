@@ -6,7 +6,7 @@
 - Video 游戏测试视频
 - compressed APP 游戏本地文件
 
-# Unity concept/methods used 制作过程中使用的unity工具或模块
+# Unity concept/methods used 制作过程中使用的Unity工具或模块
 - Enum (finite state machine)
 - Animator
 - Scriptableobject
@@ -16,7 +16,7 @@
 - Singleton
 - Events
 
-# Assets
+# Assets Resources 图像来源
 - [Animal asset](https://deepdivegamestudio.itch.io/animalassetpack)
 - [Bee asset](https://qwaukstak.itch.io/bee-garden)
 - [Garden background asset](https://hcg-digital-arts.itch.io/farmgarden-tileset)
